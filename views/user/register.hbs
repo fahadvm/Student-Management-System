@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="/styles/userregister.css" />
+<div class="container">
+    <div class="card">
+        <h3>Create an Account</h3>
+       
+        <form id="registrationForm" class="form" method="post"
+            action="/user/register">
+    
+            <input type="email"  name="email" id="email" placeholder="Your Email"
+                class="form__input" autocomplete="off"/>
+            <span class="error-message-email" id="emailError"></span>
+            <input type="password" name="password" id="password"
+                placeholder="Your Password" class="form__input" />
+            <span class="error-message-password" id="passwordError"></span>
+            <input
+                id="confirmPassword"
+                name="cPassword"
+                type="password"
+                placeholder="Confirm Password"
+                class="form__input" />
+            <span class="error-message-password" id="confirmPasswordError"></span>
+
+            <h4 class="account-option"><a href="/user/login">Already have an
+                    account?</a></h4>
+
+            <button type="submit" class="btn">Submit & Register</button>
+
+            <div class="divider"></div>
+  {{#if message}}
+            <p class="error-message">{{message}}</p>
+        {{/if}}
+
+        </form>
+    </div>
+</div>
+
+<div id="errorPopup" class="error-popup"></div>
+
+<script>
+ const message = "{{message}}";
+
+    if (message) {
+        swal(message);
+    }
+
+    document.getElementById('registrationForm').addEventListener('submit', function(e) { e.preventDefault() 
+
+   
+
+
+
+    
+
+    const email = document.getElementById('email').value.trim(); 
+    const password = document.getElementById('password').value.trim(); 
+    const confirmPassword = document.getElementById('confirmPassword').value.trim(); 
+    const emailError =  document.getElementById("emailError") 
+    const passwordError = document.getElementById("passwordError") 
+    const confirmPasswordError = document.getElementById("confirmPasswordError") 
+    
+    emailError.textContent = ""
+    passwordError.textContent = "" 
+    confirmPasswordError.textContent = "" 
+    let isValid = true; 
+     const emailRegex = /^[a-zA-Z0-9]([a-zA-Z0-9._-])*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+; 
+    if(email==""){ 
+        emailError.textContent = "Email Required";
+        isValid = false; 
+         }else if(!emailRegex.test(email)){
+             emailError.textContent = "Please Enter a valid Email";
+             isValid = false; 
+              } 
+              const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; 
+    if(password == ""){ 
+         passwordError.textContent = "Password Required" 
+         isValid = false; 
+         }else if(password.length < 8){ 
+             passwordError.textContent = "Must be 8 Characters" 
+             isValid = false;
+        }
+    if(confirmPassword == "") {
+         confirmPasswordError.textContent = "Please confirm your password"
+         isValid = false;
+         }
+    if(password!==confirmPassword){
+         confirmPasswordError.textContent = "Passwords do not match";
+         isValid = false;
+         } 
+    if (isValid) {
+         this.submit();
+        }
+        });
+
+</script>

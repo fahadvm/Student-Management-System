@@ -1,0 +1,347 @@
+<link rel="stylesheet" href="/styles/dashboard.css">
+<nav class="navbar">
+    <div class="navbar-left">
+        <h1>Admin Dashboard</h1>
+    </div>
+    <div class="navbar-right">
+        <span class="logged-in-user">Welcome, {{loggedInUser.email}}</span>
+            
+
+            {{!-- LOGOUT BUTTON --}}
+        <form action="/admin/logout" method="POST">
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="header">
+        <h2>User Management</h2>
+          
+
+          {{!-- FOR SEARCH FORM --}}
+        <form action="/admin/search" method="GET" class="search-form">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search by email"
+                value="{{searchQuery}}"
+                autocomplete="off" />
+            <button type="submit">Search</button>
+        </form>
+           
+
+           {{!-- FOR OPEN ADD USER MODAL --}}
+        <button onclick="openAddUserModal()" class="btn-add-user">Add
+            User</button>
+    </div>
+     
+
+     {{!-- USER DETAILS TABLE --}}
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>{{@index}}</td>
+                <td>{{this.email}}</td>
+                <td>
+
+
+                    {{!-- FOR OPEN EDIT USER MODAL --}}
+                    <button class="btn-edit"
+                        onclick="openEditUserModal('{{this._id}}', '{{this.email}}')">Edit</button>
+
+                        {{!-- BUTTON FOR DELETE USER --}}
+                    <button class="delete-btn"
+                        onclick="deleteUser('{{this._id}}')">Delete</button>
+
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+{{!-- FOR ADD USER MODAL --}}
+<div id="addUserModal" class="modal">
+    <div class="modal-content">
+
+
+        {{!-- CLOSE ADD USER MODAL --}}
+        <span class="close-btn" onclick="closeAddUserModal()">&times;</span>
+        <h3>Add User</h3>
+        <form id="addUserForm">
+            <label for="addEmail">Email</label>
+            <input type="email" id="addEmail" name="email" required
+                placeholder="Enter email" autocomplete="off">
+            <label for="addPassword">Password</label>
+            <input type="password" id="addPassword" autocomplete="off"
+                name="password" required placeholder="Enter password">
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+</div>
+
+
+{{!-- FOR EDIT USER MODAL --}}
+<div id="editUserModal" class="modal">
+    <div class="modal-content">
+
+         {{!-- CLOSE EDIT USER MODAL --}}
+        <span class="close-btn" onclick="closeEditUserModal()">&times;</span>
+        <h3>Edit User</h3>
+         
+         {{!-- ERROR MSG FOR EDITING USER --}}
+        <div id="editUserErrorMessage" class="error-message"></div>
+
+        <form id="editUserForm">
+            <input type="hidden" id="editUserId" name="id">
+            <label for="editEmail">Email</label>
+            <input type="email" id="editEmail" name="email" required
+                placeholder="Enter email" autocomplete="off">
+            <label for="editPassword">Password</label>
+            <input type="password" id="editPassword" name="password"
+                placeholder="Enter new password" autocomplete="off">
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    
+     //FUNCTION TO OPEN ADD USER MODAL
+        function openAddUserModal() {
+    document.getElementById('addUserModal').style.display = 'block';
+}
+     
+
+     //FUNCTION TO CLOSE ADD USER MODAL
+        function closeAddUserModal() {
+    document.getElementById('addUserModal').style.display = 'none';
+     document.getElementById('addUserForm').reset();
+}
+     
+
+      //FUNCTION TO OPEN EDIT USER MODAL
+        function openEditUserModal(id, email) {
+    document.getElementById('editUserModal').style.display = 'block';
+    document.getElementById('editUserId').value = id;
+    document.getElementById('editEmail').value = email;
+    document.getElementById('editUserErrorMessage').innerText = '';
+}        
+
+
+//FUNCTION TO CLOSE EDIT USER MODAL
+function closeEditUserModal() {
+    document.getElementById('editUserModal').style.display = 'none';
+    document.getElementById('editUserErrorMessage').innerText = '';
+}
+
+
+
+//ADDING EVENT LISTENER TO ADD THE USER
+document.getElementById('addUserForm').addEventListener('submit', function (event) {
+    event.preventDefault(); 
+    
+    const email = document.getElementById('addEmail').value;
+    const password = document.getElementById('addPassword').value;
+   
+
+   // FOR VALIDATE EMAIL FORMAT 
+    if (!isValidEmail(email)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid Email',
+            text: 'Please enter a valid email address',
+        });
+        return;
+    }
+
+    const formData = {
+        email: email,
+        password: password
+    };
+
+   
+     
+   //SEND POST REQUEST TO ADD USR
+
+    fetch('/admin/addUser', {
+        method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+          
+            Swal.fire({
+                icon: 'success',
+                title: "Success!",
+                text: 'User added successfully',
+                
+            }).then(() => {
+                location.reload()
+            })
+        } else {
+           
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message
+
+              
+            });
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'An error occurred',
+             text: 'An error occurred while adding the user'
+            
+        });
+    });
+});
+
+
+//FOR VALIDATE EMAIL FORMAT
+function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9]([a-zA-Z0-9._-])*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+
+
+//ADDING EVENT LISTENER TO EDIT THE USER
+document.getElementById('editUserForm').addEventListener('submit', function (event) {
+    event.preventDefault(); 
+
+    const id = document.getElementById('editUserId').value;
+    const email = document.getElementById('editEmail').value;
+    const password = document.getElementById('editPassword').value;
+
+    
+    //VALIDATE THE EMAIL FORMAT
+     if (!isValidEmail(email)) {
+        document.getElementById('editUserErrorMessage').innerText = 'Invalid email format';
+        return;
+    }
+    
+    const data = {
+         id: id,
+        email: email,
+        password: password
+    };
+
+
+    //SEND POST REQUEST TO EDIT USER
+    fetch('/admin/editUser', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: true,
+            }).then(() => {
+                location.reload()
+        });
+        } else {
+            document.getElementById('editUserErrorMessage').innerText = data.message;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('editUserErrorMessage').innerText = 'An error occurred while updating the user';
+    });
+});
+       
+
+
+        //FUNCTION TO DELETE USER
+        // In your dashboard.hbs or wherever your delete function is
+
+function deleteUser(userId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You can't undo this process!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`/admin/delete-user/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User deleted successfully',
+                        showConfirmButton: true,
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    console.error('Error response:', data);
+                    Swal.fire({
+                        icon: 'error',
+                        title: data.message || 'An error occurred while deleting the user',
+                        showConfirmButton: true,
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'An error occurred',
+                    text: 'There was a problem communicating with the server.',
+                    showConfirmButton: true,
+                });
+            });
+        }
+    });
+}
+
+
+      function performSearch() {
+        const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+        const rows = document.querySelectorAll('#userTableBody tr');
+
+        rows.forEach(row => {
+            const email = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            if (email.includes(searchQuery)) {
+                row.style.display = ''; 
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+
+    </script>

@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="/styles/userlogin.css" />
+<div class="container">
+    <div class="card">
+        <h3>Sign in</h3>
+        {{#if message}}
+            <p class="error-message-success">{{message}}</p>
+        {{/if}}
+        <form id="registrationForm" class="form" method="post" action="/user/login">
+            <input type="email" name="email" id="email" placeholder=" Email" class="form__input" autocomplete="off" />
+            <span class="error-message-email" id="emailError"></span>
+
+            <input type="password" name="password" id="password" placeholder="Password" class="form__input" />
+            <span class="error-message-password" id="passwordError"></span>
+            <h4 class="account-option"><a href="/user/register">Signup</a></h4>
+            <button type="submit" class="btn">Login</button>
+
+        </form>
+    </div>
+</div>
+
+
+    <script>
+    const message = "{{message}}";
+
+    if (message) {
+        
+        swal(message);
+
+    }
+
+    document.getElementById('registrationForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        const emailError = document.getElementById("emailError");
+        const passwordError = document.getElementById("passwordError");
+        const confirmPasswordError = document.getElementById("confirmPasswordError");
+
+        emailError.textContent = "";
+        passwordError.textContent = "";
+
+        let isValid = true;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === "") {
+            emailError.textContent = "Email Required";
+            isValid = false;
+        } else if (!emailRegex.test(email)) {
+            emailError.textContent = "Please Enter a valid Email";
+            isValid = false;
+        }
+
+        if (password === "") {
+            passwordError.textContent = "Password Required";
+            isValid = false;
+        }
+
+       
+        if (isValid) {
+            this.submit();
+        }
+    });
+</script>
+
+

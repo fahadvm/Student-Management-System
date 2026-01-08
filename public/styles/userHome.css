@@ -1,0 +1,101 @@
+/* userHome.css */
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(120deg, #141414, #2b2b2b);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.navbar {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.navbar span {
+  margin-left: 10px;
+  font-size: 1rem;
+  color: #979797;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.logout-form {
+  margin: 0;
+}
+
+.logout-btn {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #e50914;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #ff1e1e;
+  transform: scale(1.05);
+}
+
+.main-text {
+  margin-top: 100px; /* Adjust for fixed navbar */
+  font-size: 2.5rem;
+  color: #fff;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 2s ease-out;
+}
+
+form {
+  margin-top: 30px;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #e50914;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+input[type="submit"]:hover {
+  background: #ff1e1e;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}

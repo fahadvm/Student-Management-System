@@ -1,0 +1,24 @@
+
+<link rel="stylesheet" href="/styles/adminlogin.css">
+    <div class="container">
+        <div class="card">
+            <h3>Admin Log in</h3>
+            {{#if message}}
+            <p class="error-message">{{message}}</p>
+        {{/if}}
+            <form id="registrationForm" class="form" method="post" action="/admin/login">
+                <input type="email" name="email" id="email" placeholder=" Email" class="form__input" autocomplete="off"/>
+                <span class="error-message-email" id="emailError"></span>
+                
+                <input type="password" name="password" id="password" placeholder="Password" class="form__input" />
+                <span class="error-message-password" id="passwordError"></span>
+                   
+                
+                <button type="submit" class="btn">Login</button>
+
+              
+
+               
+            </form>
+        </div>
+    </div>

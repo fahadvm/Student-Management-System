@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        overflow-x: hidden;
+        background: #0b0b0b;
+        color: #ffffff;
+    }
+
+    /* Navbar */
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 100;
+        border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+    }
+
+    .logout-btn {
+        background: transparent;
+        border: 1px solid #ff1e1e;
+        color: #ff1e1e;
+        padding: 8px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+        background: #ff1e1e;
+        color: #000;
+        box-shadow: 0 0 15px rgba(255, 30, 30, 0.6);
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #000000 0%, #1a0000 100%);
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23ff1e1e"/><circle cx="80" cy="40" r="3" fill="%23ff1e1e"/><circle cx="50" cy="70" r="1.5" fill="%23ff1e1e"/></svg>') repeat;
+        opacity: 0.15;
+        animation: float 20s infinite linear;
+    }
+
+    .hero-content {
+        z-index: 2;
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 4.5rem;
+        margin-bottom: 20px;
+        color: #ffffff;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeInUp 1.5s forwards;
+    }
+
+    p {
+        font-size: 1.5rem;
+        margin-bottom: 40px;
+        color: #cccccc;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeInUp 1.5s 0.5s forwards;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 15px 40px;
+        background: linear-gradient(135deg, #ff1e1e, #b30000);
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        transition: 0.3s;
+        opacity: 0;
+        animation: fadeInUp 1.5s 1s forwards;
+        box-shadow: 0 0 20px rgba(255, 30, 30, 0.5);
+    }
+
+    .btn:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 30, 30, 0.9);
+    }
+
+    /* Particles */
+    .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .particle {
+        position: absolute;
+        background: rgba(255, 30, 30, 0.6);
+        border-radius: 50%;
+        animation: float 15s infinite ease-in-out;
+    }
+
+    /* Sections */
+    .section {
+        padding: 100px 20px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 1s, transform 1s;
+        background: #0b0b0b;
+    }
+
+    .section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    h2 {
+        font-size: 3rem;
+        margin-bottom: 30px;
+        color: #ff1e1e;
+    }
+
+    .features {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
+
+    .feature-card {
+        background: rgba(20, 0, 0, 0.6);
+        padding: 40px;
+        border-radius: 20px;
+        width: 300px;
+        backdrop-filter: blur(10px);
+        transition: 0.4s;
+        border: 1px solid rgba(255, 30, 30, 0.2);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 0 25px rgba(255, 30, 30, 0.4);
+    }
+
+    .feature-card h3 {
+        color: #ff1e1e;
+        margin-bottom: 15px;
+    }
+
+    .feature-card p {
+        color: #cccccc;
+        font-size: 1rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-20px) rotate(10deg);
+        }
+    }
+
+    .hero {
+        transform: perspective(1000px);
+    }
+</style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <span> {{{email}}}</span>
+        <form action="/user/logout" method="post" class="logout-form">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </nav>
+    <section class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1>Welcome to the student-hub</h1>
+            <p>Student management application.</p>
+            <a href="#" class="btn">Get Started</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Amazing Features</h2>
+        <div class="features">
+            <div class="feature-card">
+                <h3>Fast & Responsive</h3>
+                <p>Built for speed and seamless experience on all devices.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Smooth Animations</h3>
+                <p>Elegant transitions and effects that captivate users.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Modern Design</h3>
+                <p>Clean, trendy aesthetics with gradient and glassmorphism.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Floating Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.width = `${Math.random() * 5 + 2}px`;
+            particle.style.height = particle.style.width;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 15}s`;
+            particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            particlesContainer.appendChild(particle);
+        }
+
+        // Scroll Animations
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Mouse Parallax (subtle)
+        document.querySelector('.hero').addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            document.querySelector('.hero').style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${y * -5}deg)`;
+        });
+    </script>
+</body>
+
+</html>

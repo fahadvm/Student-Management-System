@@ -1,0 +1,267 @@
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4CAF50; /* Green */
+    padding: 10px 20px;
+    color: white;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.navbar h1 {
+    margin: 0;
+}
+
+/* Logout Button */
+.btn-logout {
+    background-color: #388E3C; /* Dark Green */
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.btn-logout:hover {
+    background-color: #2C6B2F; /* Even Darker Green */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Edit User Form */
+#editUserForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#editUserForm label {
+    margin-bottom: 5px;
+}
+
+#editUserForm input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+#editUserForm input:focus {
+    border-color: #388E3C; /* Focused input border color */
+}
+
+#editUserForm button {
+    padding: 10px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+#editUserForm button:hover {
+    background-color: #388E3C; /* Dark Green */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Container */
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+/* Add User Button */
+.btn-add-user {
+    z-index: 1;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.btn-add-user:hover {
+    background-color: #388E3C; /* Dark Green */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* User Table */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.user-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light Gray */
+}
+
+/* Edit Button */
+.btn-edit {
+    z-index: 1;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-right: 5px;
+    position: relative;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.btn-edit:hover {
+    background-color: #388E3C; /* Dark Green */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Delete Button */
+.delete-btn {
+    z-index: 1;
+    position: relative;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.delete-btn:hover {
+    background-color: #388E3C; /* Dark Green */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added box shadow for depth */
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal input[type="email"],
+.modal input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal input:focus {
+    border-color: #388E3C; /* Focused input border color */
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.modal button {
+    padding: 10px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.modal button:hover {
+    background-color: #388E3C; /* Dark Green */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-form input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+.search-form input:focus {
+    border-color: #388E3C; /* Focused input border color */
+}
+
+.search-form button {
+    padding: 5px 10px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.search-form button:hover {
+    background-color: #388E3C; /* Dark Green */
+    transform: scale(1.05); /* Slight zoom effect */
+}

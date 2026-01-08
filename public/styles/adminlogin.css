@@ -1,0 +1,102 @@
+/* Netflix-style Admin Login CSS */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(120deg, #314c4f, #265783);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    background: rgba(11, 2, 76, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+    animation: slideIn 1.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #0effe3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form {
+    width: 100%;
+}
+
+.form__input {
+    width: 94%;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: #fff;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.form__input:focus {
+    outline: none;
+    background: #444;
+    box-shadow: 0 0 10px #e50914;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background: #09bde5;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background: #09a7cb;
+    transform: scale(1.05);
+}
+
+.error-message {
+    color: #e50914;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.error-message-email,
+.error-message-password {
+    color: #e50914;
+    font-size: 0.9rem;
+    margin: -8px 0 10px;
+    text-align: left;
+}
